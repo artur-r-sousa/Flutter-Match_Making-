@@ -54,18 +54,7 @@ Future<User> registerUser(
       },
     );
   }
-
-
-
-  Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
-
-  var nUser = new User(id: id, imgUrl: imgUrl, name: name, age: age,localeState: localeState, localeCity: localeCity, description: description, email: email);
-  print(nUser);
-  return nUser;
-
 }
-
-
 
 class UserPostState extends State<UserPost> {
   TextEditingController nameController = TextEditingController();
@@ -123,14 +112,15 @@ class UserPostState extends State<UserPost> {
                 textFields("city", lCityController),
                 textFields("email", emailController),
                 RaisedButton(child: Text('Submit'), onPressed: () async {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
                   await registerUser(
                       null,
-                      "imgUrl",
+                      "assets/images/vaca.jpg",
                       nameController.text,
                       ageController.text,
-                      descController.text,
                       lStateController.text,
                       lCityController.text,
+                      descController.text,
                       emailController.text,
                       context);
                 }),

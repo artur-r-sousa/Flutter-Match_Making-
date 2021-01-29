@@ -6,10 +6,10 @@ User userJson(String str) => User.fromJson(json.decode(str));
 String userToJson(User user) => json.encode(user.toJson());
 
 class User {
-  String id;
+  int id;
   String imgUrl;
   String name;
-  String age;
+  int age;
   String localeState;
   String localeCity;
   String description;
@@ -49,12 +49,3 @@ class User {
     'email': email,
   };
 }
-
-String get id => id;
-String get imgUrl => imgUrl;
-String get name => name;
-String get age => age;
-String get localeState => localeState;
-String get localeCity => localeCity;
-String get description => description;
-String get email => email;
