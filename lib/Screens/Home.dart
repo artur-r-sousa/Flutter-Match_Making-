@@ -38,7 +38,11 @@ class HomeState extends State<Home> {
     print(' icon (messages) was pressed');
   }
 
-  int id = 26;
+  var id=26;
+
+  void setId(int id) {
+    this.id = id;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,74 +70,80 @@ class HomeState extends State<Home> {
         ],
       ),
       body: Center(
-          child: Column(
-        children: [
-          InkWell(
-            onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) => UserDetails()));},
-            child: Container(
-              child: FutureBuilder<User>(
-                  future: fetchUser(id),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return Stack(
-                        children: <Widget>[
-                          Container(
-                            decoration:  BoxDecoration(
-                                borderRadius: BorderRadius.circular(15.0),
-                                color: Colors.black
-                            ),
-                            margin: EdgeInsets.all(5.0),
-                            height: 600,
-                            child: ClipRRect(
-                                borderRadius: BorderRadius.circular(28.0),
-                                child: new Image.asset(
-                                    snapshot.data.imgUrl.toString(),
-                                    fit: BoxFit.cover
-                                )),
-                          ),
-                          Row(
-                            children: <Widget>[
-                              Container(
-                                margin: EdgeInsets.only(left: 15, top: 450),
-                                child: Text(
-                                  snapshot.data.name.toString() +
-                                      ", " +
-                                      snapshot.data.age.toString(),
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 35,
-                                      color: Colors.white),
-                                ),
-                              )
-                            ],
-                          ),
-                          Row(
-                            children: <Widget>[
-                              Container(
-                                margin: EdgeInsets.only(left: 15, top: 490),
-                                child: Text(
-                                  snapshot.data.localeState.toString() +
-                                      ", " +
-                                      snapshot.data.localeCity.toString(),
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 25,
-                                      color: Colors.white),
-                                ),
-                              )
-                            ],
-                          ),
-                        ],
-                      );
-                    } else if (snapshot.hasError) {
-                      return Text("${snapshot.error}");
-                    }
-                    return CircularProgressIndicator();
-                  }),
+          child: AspectRatio(
+            aspectRatio: 2/3,
+            child: Column(
+
+              children: [
+                InkWell(
+                    onTap: () {UserDetailsState.setId(id);Navigator.push(context, MaterialPageRoute(builder: (context) => UserDetails()));},
+                    child: Container(
+                      child: FutureBuilder<User>(
+                          future: fetchUser(id),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              return Stack(
+                                children: <Widget>[
+                                  Container(
+                                    decoration:  BoxDecoration(
+                                        borderRadius: BorderRadius.circular(15.0),
+                                        color: Colors.black
+                                    ),
+                                    margin: EdgeInsets.all(5.0),
+                                    height: 600,
+                                    child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(28.0),
+                                        child: new Image.asset(
+                                            snapshot.data.imgUrl.toString(),
+                                            fit: BoxFit.cover
+                                        )),
+                                  ),
+                                  Row(
+                                    children: <Widget>[
+                                      Container(
+                                        margin: EdgeInsets.only(left: 15, top: 450),
+                                        child: AutoSizeText(
+
+                                          snapshot.data.name.toString() +
+                                              ", " +
+                                              snapshot.data.age.toString(),
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 35,
+                                              color: Colors.white),
+                                          maxLines: 2,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    children: <Widget>[
+                                      Container(
+                                        margin: EdgeInsets.only(left: 15, top: 490),
+                                        child: Text(
+                                          snapshot.data.localeState.toString() +
+                                              ", " +
+                                              snapshot.data.localeCity.toString(),
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 25,
+                                              color: Colors.white),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ],
+                              );
+                            } else if (snapshot.hasError) {
+                              return Text("${snapshot.error}");
+                            }
+                            return CircularProgressIndicator();
+                          }),
+                    )
+                )
+              ],
             )
-          )
-        ],
-      )),
+          )),
       bottomNavigationBar: Container(
           margin: EdgeInsets.only(bottom: 40),
           child: Row(
@@ -150,13 +160,13 @@ class HomeState extends State<Home> {
                     onPressed: () {
                           setState(() {
                             if (id == 26) {
-                              id = 27;
+                              setId(27);
                             } else if (id == 27) {
-                              id = 28;
+                              setId(28);
                             } else if (id == 28) {
-                              id = 29;
+                              setId(29);
                             } else if (id == 29) {
-                              id = 26;
+                              setId(26);
                             } else {
                               id = 26;
                             }

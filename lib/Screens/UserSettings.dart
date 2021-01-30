@@ -1,6 +1,7 @@
 import 'package:fake_tinder_second/Entities/User.dart';
 import 'package:fake_tinder_second/Screens/UserPost.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'UserPost.dart';
 import 'Home.dart';
 import 'package:http/http.dart' as http;
@@ -176,12 +177,12 @@ class UserSettingsState extends State<UserSettings> {
                               controller: descController,
                               validator: (String value) {
                                 if (value.isEmpty) {
-                                  return 'Write about yourself';
+                                  return "Write about yourself";
                                 }
                               },
                               decoration: InputDecoration(
-                                  labelText: snapshot.data.description.toString(),
-                                  hintText: 'Write about yourself',
+                                  labelText: 'Description',
+                                  hintText: 'A brief description about yourself',
                                   labelStyle: textStyle(),
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(5.0))),
